@@ -1,7 +1,7 @@
 # Nucleic_acid_Conservation_seq_analysis
-Download sequences from NCBI and find conserved sequence by sliding window; generate plots and aligned_seq fasta file.
+Download sequences from NCBI and find conserved sequence by sliding window; generate plots and aligned_seq fasta file
 
-#Skill 结构
+# Skill 结构
 ncbi-conservation-analysis/
 ├── SKILL.md                              # 主入口，描述触发词与工作流
 ├── scripts/
