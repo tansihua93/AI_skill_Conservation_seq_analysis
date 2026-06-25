@@ -1,0 +1,13 @@
+{
+  "keyword": "SARS-CoV-2 complete genome",
+  "output_dir": "./results",
+  "reference_accession": "NC_045512.2",
+  "max_sequences": 20,
+  "window_size": 50,
+  "window_step": 1,
+  "identity_threshold": 0.99,
+  "alignment_tool": "auto",
+  "email": "your-email@example.com",
+  "api_key": null,
+  "annotation": "sars-cov-2-default"
+}
