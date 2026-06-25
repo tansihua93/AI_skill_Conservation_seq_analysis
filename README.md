@@ -1,5 +1,5 @@
 # Nucleic_acid_Conservation_seq_analysis
-Download sequences from NCBI and find conserved sequence by sliding window; generate plots and aligned_seq fasta file
+End-to-end workflow for batch nucleotide conservation analysis: from keyword-based retrieval on NCBI, through multiple sequence alignment, to sliding-window conservation scoring, conserved-region extraction, and a publication-style multi-panel figure.
 
 # Skill 结构
 ncbi-conservation-analysis/
