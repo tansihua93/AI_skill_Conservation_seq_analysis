@@ -1,20 +1,11 @@
 # Nucleic_acid_Conservation_seq_analysis
 End-to-end workflow for batch nucleotide conservation analysis: from keyword-based retrieval on NCBI, through multiple sequence alignment, to sliding-window conservation scoring, conserved-region extraction, and a publication-style multi-panel figure.
 
-# Skill 结构
-ncbi-conservation-analysis/
-├── SKILL.md                              # 主入口，描述触发词与工作流
-├── scripts/
-│   ├── run_pipeline.py                   # 主流程编排器
-│   ├── download_ncbi.py                  # NCBI Entrez 下载（限速/重试）
-│   ├── sliding_window_identity.py        # 逐核苷酸 identity + 50bp 滑动窗口
-│   ├── extract_conserved.py              # 合并相邻窗口、导出 FASTA
-│   └── plot_conservation.py              # 4 面板 matplotlib 论文级图
-├── references/
-│   ├── sars-cov-2-annotation.json        # 默认 SARS-CoV-2 ORF 注释
-│   ├── figure_layout.md                  # 4 面板布局规范
-│   └── dependencies.md                   # 依赖（biopython/matplotlib/MAFFT）
-└── assets/
-    ├── config_template.json              # 开箱即用配置
-    ├── USAGE.md                          # 运行示例
-    └── sample_sequences.fasta            # 测试数据
+1. **Download** — Query NCBI Nucleotide via Biopython's `Entrez.esearch` + `Entrez.efetch`; save per-accession FASTA files into `<output>/sequences/`.   
+2. **Select reference** — Pick the reference sequence (user-provided accession, or longest sequence).
+3. **Pairwise alignment vs reference** — Use Biopython `pairwise2` or MAFFT (`--auto`) to align every sequence against the reference. Compute per-position identity; gaps are excluded from identity denominator (matches / (matches + mismatches)). Result: one identity value per reference position, averaged across all pairwise alignments.
+4. **Sliding-window conservation** — Slide a 50 bp window (step 1 nt) over the per-position identity vector; report the mean identity in each window. Windows with identity ≥ threshold (default 0.99) are marked as conserved.
+5. **Multi-sequence alignment** — Run a multiple alignment (MUSCLE or MAFFT) on the full set, restricted to the reference's coordinate system.
+6. **Extract conserved regions** — Merge adjacent conserved windows; extract the corresponding subsequence (from the reference) for each region; write `conserved_regions.fasta`.
+7. **Figure** — Build a 4-panel matplotlib figure (see `scripts/plot_conservation.py`).
+8. **Cleanup** — Emit a summary CSV (`conservation_summary.csv`) and console report.
